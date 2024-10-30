@@ -274,6 +274,7 @@ def prepare_multi_gpu_env(args: argparse.Namespace) -> Dict[str, str]:
             raise ValueError("When using `--fsdp_cpu_ram_efficient_loading` set `--fsdp_sync_module_states` to `True`")
 
         current_env["FSDP_SHARDING_STRATEGY"] = str(args.fsdp_sharding_strategy)
+        current_env["FSDP_DEVICE_MESH"] = str(args.fsdp_device_mesh)
         current_env["FSDP_OFFLOAD_PARAMS"] = str(args.fsdp_offload_params).lower()
         current_env["FSDP_MIN_NUM_PARAMS"] = str(args.fsdp_min_num_params)
         if args.fsdp_auto_wrap_policy is not None:

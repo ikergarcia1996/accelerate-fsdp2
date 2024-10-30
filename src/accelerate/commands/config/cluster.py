@@ -399,6 +399,15 @@ def get_cluster_input():
                 FSDP_SHARDING_STRATEGY,
                 lambda x: FSDP_SHARDING_STRATEGY[int(x)],
             )
+            if fsdp_config["fsdp_sharding_strategy"] in [FSDP_SHARDING_STRATEGY[-1], FSDP_SHARDING_STRATEGY[-2]]:
+                fsdp_config["fsdp_device_mesh"] = _ask_field(
+                    input_text="Write your device mesh configuration in the format (num_groups, num_gpus_per_group)."
+                    "For for more info read: https://pytorch.org/tutorials/recipes/distributed_device_mesh.html",
+                    convert_value=str,
+                )
+                if fsdp_config["fsdp_process_group"] == "":
+                    fsdp_config["fsdp_process_group"] = None
+
             fsdp_config["fsdp_offload_params"] = _ask_field(
                 "Do you want to offload parameters and gradients to CPU? [yes/NO]: ",
                 _convert_yes_no_to_bool,

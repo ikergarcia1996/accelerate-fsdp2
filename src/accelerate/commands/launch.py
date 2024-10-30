@@ -534,6 +534,15 @@ def launch_command_parser(subparsers=None):
         default="FULL_SHARD",
         help="FSDP's Sharding Strategy. (useful only when `use_fsdp` flag is passed).",
     )
+
+    fsdp_args.add_argument(
+        "--fsdp_device_mesh",
+        type=str,
+        default=None,
+        help="Device mesh configuration in the format (num_groups, num_gpus_per_group)."
+        "For for more info read: https://pytorch.org/tutorials/recipes/distributed_device_mesh.htm"
+        "(Default: None)",
+    )
     fsdp_args.add_argument(
         "--fsdp_auto_wrap_policy",
         type=str,
