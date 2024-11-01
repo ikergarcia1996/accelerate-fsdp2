@@ -1579,6 +1579,9 @@ class Accelerator:
 
                         mesh_2d = init_device_mesh("cuda", kwargs["device_mesh"])
                         kwargs["device_mesh"] = mesh_2d
+                    else:
+                        kwargs.pop("device_mesh")
+                        
                     model = FSDP(model, **kwargs)
                     if fsdp_plugin.activation_checkpointing:
                         from torch.distributed.algorithms._checkpoint.checkpoint_wrapper import (

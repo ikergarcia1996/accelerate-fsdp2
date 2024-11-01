@@ -1656,6 +1656,8 @@ class FullyShardedDataParallelPlugin:
             else:
                 self.sharding_strategy = ShardingStrategy[self.sharding_strategy.upper()]
 
+        if self.device_mesh is None:
+            self.device_mesh = os.environ.get(env_prefix + "DEVICE_MESH", None)
         if isinstance(self.device_mesh, str):
             # Convert string tuple representation like "(2,4)" to actual tuple
             if self.device_mesh.startswith("(") and self.device_mesh.endswith(")"):

@@ -274,7 +274,6 @@ def prepare_multi_gpu_env(args: argparse.Namespace) -> Dict[str, str]:
             raise ValueError("When using `--fsdp_cpu_ram_efficient_loading` set `--fsdp_sync_module_states` to `True`")
 
         current_env["FSDP_SHARDING_STRATEGY"] = str(args.fsdp_sharding_strategy)
-        current_env["FSDP_DEVICE_MESH"] = str(args.fsdp_device_mesh)
         current_env["FSDP_OFFLOAD_PARAMS"] = str(args.fsdp_offload_params).lower()
         current_env["FSDP_MIN_NUM_PARAMS"] = str(args.fsdp_min_num_params)
         if args.fsdp_auto_wrap_policy is not None:
@@ -290,6 +289,8 @@ def prepare_multi_gpu_env(args: argparse.Namespace) -> Dict[str, str]:
         current_env["FSDP_CPU_RAM_EFFICIENT_LOADING"] = str(args.fsdp_cpu_ram_efficient_loading).lower()
         current_env["FSDP_SYNC_MODULE_STATES"] = str(args.fsdp_sync_module_states).lower()
         current_env["FSDP_ACTIVATION_CHECKPOINTING"] = str(args.fsdp_activation_checkpointing).lower()
+        if args.fsdp_device_mesh is not None:
+            current_env["FSDP_DEVICE_MESH"] = str(args.fsdp_device_mesh)
 
     if args.use_tp:
         current_env["ACCELERATE_USE_TP"] = "true"
